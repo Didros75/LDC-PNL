@@ -307,8 +307,6 @@ class Bullet:
             return
         self.x += self.dx * self.speed
         self.y += self.dy * self.speed
-        if self.x < -self.radius or self.x > SCREEN_WIDTH + self.radius or self.y < -self.radius or self.y > SCREEN_HEIGHT + self.radius:
-            self.is_active = False
 
     def draw(self, cam_x, cam_y):
         if not self.is_active:
@@ -457,6 +455,7 @@ class Game:
         bar_y = 15
         bar_width = 100
         pyxel.text(5, 5, "Score: " + str(self.score), 7)
+        pyxel.text(5,25, "Player position: " + str(self.player.x) + "," + str(self.player.y), 7)
         progress = 0
         if self.max_time > 0:
             progress = min(self.time_near_coffre / self.max_time, 1.0)
