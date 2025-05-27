@@ -1,4 +1,39 @@
+from platform import python_revision
+
 import pyxel
+
+#CONSTANTS
+SCREEN_WIDTH = 256
+SCREEN_HEIGHT = 256
+TILE_SIZE = 8
+
+default_x = 128
+default_y = 128
+
+class GameObject:
+    def __init__(self, x, y, w, h, u, v, img):
+        self.x = x
+        self.y = y
+        self.w = w
+        self.h = h
+        self.u = u
+        self.v = v
+        self.img = img
+
+    def draw(self, cam_x, cam_y):
+        screen_x = cam_x - self.x
+        screen_y = cam_y - self.y
+        if (screen_x + self.w) > 0 and screen_x < SCREEN_WIDTH and (screen_y + self.h) > 0 and screen_y < SCREEN_HEIGHT:
+            pyxel.blt(screen_x, screen_y, self.img, self.u, self.v, self.x, self.h, 0)
+
+    def get_rect(self):
+        return self.x, self.y, self.w, self.h
+
+    def check_collision(self, other_rect):
+        ax, ay, aw, ah = self.get_rect()
+        bx, by, bw, bh = other_rect
+        return (ax < bx + bw and ax + aw > bx and ay < by + bh and ay + ah > by)
+
 
 class Game:
     def __init__(self):
@@ -74,5 +109,12 @@ class Game:
         pyxel.blt(drawX, drawY, img=0, u=self.prev_u, v=self.prev_v, w=16, h=16)
 
         print(self.x, self.y)
+
+
+
+    def méchen(self):
+        pyxel.rect(40,40,8,9,col=9)
+    def méchen_move(self):
+
 
 Game()
